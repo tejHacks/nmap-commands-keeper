@@ -33,12 +33,24 @@ $conn->close();
     <title>Nmap Commands Keeper</title>
     <link rel="stylesheet" href="assets/bootstrap-5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-  
+    <style>
+        body.dark-mode {
+            background-color: #121212;
+            color: white;
+        }
+        .dark-mode .card {
+            background-color: #1e1e1e;
+            color: white;
+        }
+        .dark-mode .navbar {
+            background-color: #333;
+        }
+    </style>
 </head>
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Nmap Keeper <img width="30" height="30" src="nmap-logo-256x256.png"></a>
+            <a class="navbar-brand fw-bold" href="#">Nmap Commands Keeper <img width="30" height="30" src="nmap-logo-256x256.png"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -117,6 +129,25 @@ $conn->close();
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    // dark mode toggle
+    const body = document.body;
+            const toggleButton = document.getElementById('dark-mode-toggle');
+            const darkMode = localStorage.getItem('dark-mode');
+
+            if (darkMode === 'enabled') {
+                body.classList.add('dark-mode');
+            }
+
+            toggleButton.addEventListener('click', () => {
+                body.classList.remove('bg-light');
+                body.classList.add('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('dark-mode', 'enabled');
+                } else {
+                    localStorage.setItem('dark-mode', 'disabled');
+                }
+            });
+
     document.querySelectorAll('.edit-btn').forEach(button => {
         button.addEventListener('click', () => {
             document.getElementById('edit-id').value = button.getAttribute('data-id');
