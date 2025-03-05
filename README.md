@@ -15,10 +15,17 @@ Nmap Commands Keeper is a lightweight web-based tool for storing, managing, and 
 ✅ **Edit existing commands** via a simple modal.  
 ✅ **Dark mode support** for better readability.  
 
+## Technologies Used
+
+* PHP
+* MySQL
+* Bootstrap 5
+
+
 ## Installation
 ### 1. Clone the repository
 ```sh
-git clone https://github.com/yourusername/nmap-keeper.git
+git clone https://github.com/tejHacks/nmap-commands-keeper.git
 cd nmap-keeper
 ```
 ### 2. Set up the database
@@ -36,7 +43,7 @@ php -S localhost:8000
 ```
 Open your browser and go to `http://localhost:8000`.
 
-### 5. Use XAMPP(on Linux , try Wampp and see if it works or rewrite it and make a PR if you will)
+### 5. Use XAMPP(put the project in your htdocs folder)
 ```sh
 sudo /opt/lampp/lampp start
 ```
@@ -53,8 +60,25 @@ We **tested** the system, and it **worked** as expected. However, we encountered
 - Implementing **sudoers rules** for safer execution.
 - Possibly using an **API-based** approach for remote execution.
 
+### NOTE
+ **SOME COMMANDS MIGHT NOT WORK DUE TO PASSWORD ISSUE VIA TERMINAL**,I am currently working on that and aking sure it s safe but other than this, the system is safe
+## Screenshots
+
+![Nmap Commands Keeper Main View](page_1.png)
+![Nmap Commands Keeper Run Command](page.png)
+![Nmap Commands Keeper Mobile View](mobile.png)
+![Nmap Commands Keeper Mobile View | Long Screenshot](mobile_2.png)
+![Nmap Commands Keeper Mobile View](mobile_phone.png)
+![Nmap Commands Add command View](add_command.png)
 ## Contributing
 Feel free to fork, submit pull requests, or suggest improvements. Your contributions help make this tool better! 🚀
+
+## Future Enhancements
+
+* Implement a secure command execution method.
+* Add user authentication and authorization.
+* Implement command search and filtering.
+* Add command tagging functionality.
 
 ## License
 MIT License. Free to use and modify.

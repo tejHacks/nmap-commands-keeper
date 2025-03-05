@@ -42,8 +42,27 @@ $conn->close();
     <link rel="stylesheet" href="assets/bootstrap-5.3.3/dist/css/bootstrap.min.css">
 </head>
 <body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Nmap Keeper <img width="30" height="30" src="nmap-logo-256x256.png"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="add_commands.php">Add Commands</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#favorites">Favorites</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-secondary" id="dark-mode-toggle">Dark Mode</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container mt-5">
-        <h2 class="text-center">Add Nmap Command</h2>
+        <h2 class="text-center">Add Nmap Command <img src="nmap-logo-256x256.png" width="40" height="30"> </h2>
         <?php if (isset($success_message)) : ?>
             <div class="alert alert-success"> <?= $success_message; ?> </div>
         <?php elseif (isset($error_message)) : ?>

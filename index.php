@@ -33,12 +33,12 @@ $conn->close();
     <title>Nmap Commands Keeper</title>
     <link rel="stylesheet" href="assets/bootstrap-5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+  
 </head>
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Nmap Keeper</a>
+            <a class="navbar-brand fw-bold" href="#">Nmap Keeper <img width="30" height="30" src="nmap-logo-256x256.png"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <footer class="bg-dark text-white py-3 mt-4">
         <div class="container text-center">
-            <p>© 2025 Nmap Commands Keeper | Built with ❤ by TejTheDev</p>
+            <p>© 2025 Nmap Commands Keeper <img src="nmap-logo-256x256.png" width="40" height="30"> | Built with ❤ by TejTheDev</p>
         </div>
     </footer>
 
