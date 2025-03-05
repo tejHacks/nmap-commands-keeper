@@ -71,6 +71,7 @@ $conn->close();
                             <button class="btn btn-primary btn-sm copy-btn" data-command="<?= htmlspecialchars($command['command']) ?>">
                                 <i class="fa fa-copy"></i> Copy
                             </button>
+                        
                             <button class="btn btn-success btn-sm run-btn" data-command="<?= htmlspecialchars($command['command']) ?>">
                                 <i class="fa fa-play"></i> Run
                             </button>
@@ -96,19 +97,41 @@ $conn->close();
                     alert('Command copied!');
                 });
             });
+
             document.querySelectorAll('.run-btn').forEach(button => {
                 button.addEventListener('click', () => {
                     let command = button.getAttribute('data-command');
+
+                    console.log("Sending command:", command); // Debugging log
+
                     fetch('run_command.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: 'command=' + encodeURIComponent(command)
                     })
                     .then(response => response.text())
-                    .then(result => alert('Output: ' + result));
+                    .then(result => {
+                        console.log("Server response:", result); // Debugging log
+                        alert('Command Output:\n' + result);
+                    })
+                    .catch(error => console.error('Error:', error));
                 });
             });
         });
     </script>
+
+    <style>
+        .run-btn {
+            background-color: #28a745; /* Green color */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .run-btn:hover {
+            background-color: #218838; /* Darker green */
+        }
+    </style>
 </body>
 </html>

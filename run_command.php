@@ -1,34 +1,42 @@
 <?php
-// Include database connection
-require_once 'db.php';
+// Security: Disable error display in production
+error_reporting(0);
+ini_set('display_errors', 0);
 
-if (isset($_GET['id'])) {
-    $id = intval($_GET['id']);
+header('Content-Type: text/plain'); // Ensure plain text response
 
-    // Fetch the command from the database
-    $stmt = $conn->prepare("SELECT command FROM nmap_commands WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $stmt->bind_result($command);
-    $stmt->fetch();
-    $stmt->close();
+// Allow only specific commands (Whitelisting)
+$allowedCommands = ['nmap', 'ping', 'traceroute', 'whois', 'dig', 'nslookup'];
 
-    if ($command) {
-        // Execute the command and capture output
-        $output = shell_exec($command . " 2>&1");
+// Debugging: Log incoming request method and data
+file_put_contents("debug.log", "Request Method: " . $_SERVER['REQUEST_METHOD'] . "\n", FILE_APPEND);
+file_put_contents("debug.log", "POST Data: " . print_r($_POST, true) . "\n", FILE_APPEND);
 
-        // Store output in command_logs table
-        $stmt = $conn->prepare("INSERT INTO command_logs (command_id, output) VALUES (?, ?)");
-        $stmt->bind_param("is", $id, $output);
-        $stmt->execute();
-        $stmt->close();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['command'])) {
+    $command = escapeshellcmd($_POST['command']); // Escape shell arguments
 
-        // Display output
-        echo "<pre>$output</pre>";
-    } else {
-        echo "Command not found!";
+    // Extract the base command (first word)
+    $baseCommand = explode(' ', trim($command))[0];
+
+    // Ensure it's an allowed command
+    if (!in_array($baseCommand, $allowedCommands)) {
+        echo "Error: Command not allowed!";
+        exit;
     }
+
+    // **Fix 1: Preload system's libstdc++.so.6 to prevent XAMPP conflicts**
+    $preload = 'LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6';
+    $fullCommand = "$preload $command 2>&1"; 
+
+    // Execute the command safely
+    $output = shell_exec($fullCommand);
+
+    // Debugging: Log the executed command and output
+    file_put_contents("debug.log", "Executed Command: " . $fullCommand . "\nOutput:\n" . $output . "\n", FILE_APPEND);
+
+    // Return the output
+    echo nl2br(htmlspecialchars($output)); // Prevent XSS
 } else {
-    echo "No command ID provided!";
+    echo "Invalid request!";
 }
 ?>
