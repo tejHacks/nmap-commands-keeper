@@ -66,6 +66,7 @@ We **tested** the system, and it **worked** as expected. However, we encountered
 
 ![Nmap Commands Keeper Main View](page_1.png)
 ![Nmap Commands Keeper Run Command](page.png)
+![Nmap Commands Keeper Dark Mode View](dark_mode.png)
 ![Nmap Commands Keeper Mobile View](mobile.png)
 ![Nmap Commands Keeper Mobile View | Long Screenshot](mobile_2.png)
 ![Nmap Commands Keeper Mobile View](mobile_phone.png)
