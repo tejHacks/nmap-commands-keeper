@@ -71,7 +71,9 @@ $conn->close();
                             <button class="btn btn-primary btn-sm copy-btn" data-command="<?= htmlspecialchars($command['command']) ?>">
                                 <i class="fa fa-copy"></i> Copy
                             </button>
-                        
+                            <button class="btn btn-warning btn-sm edit-btn" data-id="<?= $command['id'] ?>" data-command="<?= htmlspecialchars($command['command']) ?>" data-description="<?= htmlspecialchars($command['description']) ?>" data-category="<?= htmlspecialchars($command['category']) ?>">
+    <i class="fa fa-edit"></i> Edit
+</button>
                             <button class="btn btn-success btn-sm run-btn" data-command="<?= htmlspecialchars($command['command']) ?>">
                                 <i class="fa fa-play"></i> Run
                             </button>
@@ -81,6 +83,70 @@ $conn->close();
             <?php endforeach; ?>
         </div>
     </div>
+
+
+
+    <!-- Edit Command Modal -->
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Nmap Command</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form">
+                    <input type="hidden" id="edit-id" name="id">
+                    <div class="mb-3">
+                        <label>Category</label>
+                        <input type="text" class="form-control" id="edit-category" name="category" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Command</label>
+                        <input type="text" class="form-control" id="edit-command" name="command" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Description</label>
+                        <textarea class="form-control" id="edit-description" name="description" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Command</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            document.getElementById('edit-id').value = button.getAttribute('data-id');
+            document.getElementById('edit-command').value = button.getAttribute('data-command');
+            document.getElementById('edit-description').value = button.getAttribute('data-description');
+            document.getElementById('edit-category').value = button.getAttribute('data-category');
+
+            var editModal = new bootstrap.Modal(document.getElementById('editModal'));
+            editModal.show();
+        });
+    });
+
+    document.getElementById('edit-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(e.target);
+
+        fetch('edit_command.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            alert(result);
+            location.reload();
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+</script>
+
 
     <footer class="bg-dark text-white py-3 mt-4">
         <div class="container text-center">
